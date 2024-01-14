@@ -1,0 +1,158 @@
+# See: https://arduino.github.io/arduino-cli/latest/platform-specification/
+
+menu.pnum=Board part number
+
+menu.usb=USB support (if available)
+menu.xusb=USB speed (if available)
+menu.virtio=Virtual serial support
+
+menu.opt=Optimize
+menu.dbg=Debug symbols and core logs
+menu.rtlib=C Runtime Library
+menu.upload_method=Upload method
+
+################################################################################
+
+# Generic F1
+GenF1.name=Generic STM32F1 series
+
+GenF1.build.core=arduino
+GenF1.build.board=GenF1
+GenF1.build.mcu=cortex-m3
+GenF1.build.series=STM32F1xx
+GenF1.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial} {build.bootloader_flags}
+GenF1.build.flash_offset=0x0
+GenF1.upload.maximum_size=0
+GenF1.upload.maximum_data_size=0
+
+
+# Generic F103RETx
+GenF1.menu.pnum.GENERIC_F103RETX=Generic F103RETx
+GenF1.menu.pnum.GENERIC_F103RETX.upload.maximum_size=524288
+GenF1.menu.pnum.GENERIC_F103RETX.upload.maximum_data_size=65536
+GenF1.menu.pnum.GENERIC_F103RETX.build.board=GENERIC_F103RETX
+GenF1.menu.pnum.GENERIC_F103RETX.build.product_line=STM32F103xE
+GenF1.menu.pnum.GENERIC_F103RETX.build.variant=STM32F1xx/F103R(C-D-E)T
+GenF1.menu.pnum.BLUEPILL_F103C6.build.variant_h=variant_{build.board}.h
+
+# Bluno m3
+GenF1.menu.pnum.BLUNO_M3==Bluno M3
+GenF1.menu.pnum.BLUNO_M3.upload.maximum_size=481280
+GenF1.menu.pnum.BLUNO_M3.upload.maximum_data_size=481280
+
+GenF1.menu.pnum.BLUNO_M3.build.simulator=ATmega2560
+GenF1.menu.pnum.BLUNO_M3.build.f_cpu=72000000L
+GenF1.menu.pnum.BLUNO_M3.build.usb_product="Bluno_M3"
+GenF1.menu.pnum.BLUNO_M3.build.board=GENERIC_F103RETX
+GenF1.menu.pnum.BLUNO_M3.build.variant=STM32F1xx/F103R(C-D-E)T
+
+# Upload menu
+GenF1.menu.upload_method.avrMethod=arvdude
+GenF1.menu.upload_method.avrMethod.upload.tool=avrdude
+GenF1.menu.upload_method.avrMethod.upload.protocol=wiring
+GenF1.menu.upload_method.avrMethod.upload.speed=115200
+GenF1.menu.upload_method.avrMethod.upload.disable_flushing=true
+GenF1.menu.upload_method.avrMethod.upload.use_1200bps_touch=false
+GenF1.menu.upload_method.avrMethod.upload.wait_for_upload_port=false
+
+GenF1.menu.upload_method.swdMethod=STM32CubeProgrammer (SWD)
+GenF1.menu.upload_method.swdMethod.upload.protocol=0
+GenF1.menu.upload_method.swdMethod.upload.options=
+GenF1.menu.upload_method.swdMethod.upload.tool=stm32CubeProg
+
+GenF1.menu.upload_method.serialMethod=STM32CubeProgrammer (Serial)
+GenF1.menu.upload_method.serialMethod.upload.protocol=1
+GenF1.menu.upload_method.serialMethod.upload.options={serial.port.file}
+GenF1.menu.upload_method.serialMethod.upload.tool=stm32CubeProg
+
+GenF1.menu.upload_method.dfuMethod=STM32CubeProgrammer (DFU)
+GenF1.menu.upload_method.dfuMethod.upload.protocol=2
+GenF1.menu.upload_method.dfuMethod.upload.options=
+GenF1.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
+
+GenF1.menu.upload_method.bmpMethod=BMP (Black Magic Probe)
+GenF1.menu.upload_method.bmpMethod.upload.protocol=gdb_bmp
+GenF1.menu.upload_method.bmpMethod.upload.tool=bmp_upload
+
+GenF1.menu.upload_method.hidMethod=HID Bootloader 2.2
+GenF1.menu.upload_method.hidMethod.upload.protocol=hid22
+GenF1.menu.upload_method.hidMethod.upload.tool=hid_upload
+GenF1.menu.upload_method.hidMethod.build.flash_offset=0x800
+GenF1.menu.upload_method.hidMethod.build.bootloader_flags=-DBL_HID
+
+GenF1.menu.upload_method.dfu2Method=Maple DFU Bootloader 2.0
+GenF1.menu.upload_method.dfu2Method.upload.protocol=maple
+GenF1.menu.upload_method.dfu2Method.upload.tool=maple_upload
+GenF1.menu.upload_method.dfu2Method.upload.usbID=1EAF:0003
+GenF1.menu.upload_method.dfu2Method.upload.altID=2
+GenF1.menu.upload_method.dfu2Method.build.flash_offset=0x2000
+GenF1.menu.upload_method.dfu2Method.build.bootloader_flags=-DBL_LEGACY_LEAF
+
+GenF1.menu.upload_method.dfuoMethod=Maple DFU Bootloader original
+GenF1.menu.upload_method.dfuoMethod.upload.protocol=maple
+GenF1.menu.upload_method.dfuoMethod.upload.tool=maple_upload
+GenF1.menu.upload_method.dfuoMethod.upload.usbID=1EAF:0003
+GenF1.menu.upload_method.dfuoMethod.upload.altID=1
+GenF1.menu.upload_method.dfuoMethod.build.flash_offset=0x5000
+GenF1.menu.upload_method.dfuoMethod.build.bootloader_flags=-DBL_LEGACY_LEAF
+
+
+GenF1.menu.usb.none=None
+GenF1.menu.usb.CDCgen=CDC (generic 'Serial' supersede U(S)ART)
+GenF1.menu.usb.CDCgen.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC
+GenF1.menu.usb.CDC=CDC (no generic 'Serial')
+GenF1.menu.usb.CDC.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC -DDISABLE_GENERIC_SERIALUSB
+GenF1.menu.usb.HID=HID (keyboard and mouse)
+GenF1.menu.usb.HID.build.enable_usb={build.usb_flags} -DUSBD_USE_HID_COMPOSITE
+GenF1.menu.xusb.FS=Low/Full Speed
+GenF1.menu.xusb.HS=High Speed
+GenF1.menu.xusb.HS.build.usb_speed=-DUSE_USB_HS
+GenF1.menu.xusb.HSFS=High Speed in Full Speed mode
+GenF1.menu.xusb.HSFS.build.usb_speed=-DUSE_USB_HS -DUSE_USB_HS_IN_FS
+
+
+# Optimizations
+
+GenF1.menu.opt.osstd=Smallest (-Os default)
+GenF1.menu.opt.oslto=Smallest (-Os) with LTO
+GenF1.menu.opt.oslto.build.flags.optimize=-Os -flto
+GenF1.menu.opt.o1std=Fast (-O1)
+GenF1.menu.opt.o1std.build.flags.optimize=-O1
+GenF1.menu.opt.o1lto=Fast (-O1) with LTO
+GenF1.menu.opt.o1lto.build.flags.optimize=-O1 -flto
+GenF1.menu.opt.o2std=Faster (-O2)
+GenF1.menu.opt.o2std.build.flags.optimize=-O2
+GenF1.menu.opt.o2lto=Faster (-O2) with LTO
+GenF1.menu.opt.o2lto.build.flags.optimize=-O2 -flto
+GenF1.menu.opt.o3std=Fastest (-O3)
+GenF1.menu.opt.o3std.build.flags.optimize=-O3
+GenF1.menu.opt.o3lto=Fastest (-O3) with LTO
+GenF1.menu.opt.o3lto.build.flags.optimize=-O3 -flto
+GenF1.menu.opt.ogstd=Debug (-Og)
+GenF1.menu.opt.ogstd.build.flags.optimize=-Og
+GenF1.menu.opt.o0std=No Optimization (-O0)
+GenF1.menu.opt.o0std.build.flags.optimize=-O0
+
+
+# Debug information
+
+GenF1.menu.dbg.none=None
+GenF1.menu.dbg.enable_sym=Symbols Enabled (-g)
+GenF1.menu.dbg.enable_sym.build.flags.debug=-g -DNDEBUG
+GenF1.menu.dbg.enable_log=Core logs Enabled
+GenF1.menu.dbg.enable_log.build.flags.debug=
+GenF1.menu.dbg.enable_all=Core Logs and Symbols Enabled (-g)
+GenF1.menu.dbg.enable_all.build.flags.debug=-g
+
+
+# C Runtime Library
+
+GenF1.menu.rtlib.nano=Newlib Nano (default)
+GenF1.menu.rtlib.nanofp=Newlib Nano + Float Printf
+GenF1.menu.rtlib.nanofp.build.flags.ldspecs=--specs=nano.specs -u _printf_float
+GenF1.menu.rtlib.nanofs=Newlib Nano + Float Scanf
+GenF1.menu.rtlib.nanofs.build.flags.ldspecs=--specs=nano.specs -u _scanf_float
+GenF1.menu.rtlib.nanofps=Newlib Nano + Float Printf/Scanf
+GenF1.menu.rtlib.nanofps.build.flags.ldspecs=--specs=nano.specs -u _printf_float -u _scanf_float
+GenF1.menu.rtlib.full=Newlib Standard
+GenF1.menu.rtlib.full.build.flags.ldspecs=
